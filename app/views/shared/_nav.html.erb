@@ -1,0 +1,37 @@
+<div class='logo'>
+  <h1>Time Tracer</h1>
+</div>
+
+<!-- TODO -->
+<% if current_user %>
+  <ul class="custom-nav nav nav-tabs">
+    <li class="nav-item <%= active?(root_path) %>">
+      <%= link_to "Home", root_path %>
+    </li>
+    <li class="nav-item  <%= active?(posts_path) %>">
+      <%= link_to "Time Entries", posts_path %>
+    </li>
+    <!-- TODO: possibly refactor -->
+    <%= render 'shared/audit_log_tab' if policy(AuditLog).index? %>
+    <li class="nav-item  <%= active?(new_post_path) %>">
+      <%= link_to "Request Overtime", new_post_path, id: 'new_post_from_nav' %>
+    </li>
+    <li class="nav-item dropdown pull-right">
+     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+     <ul class="dropdown-menu">
+       <!-- TODO -->
+       <% if current_user.try(:type) == 'AdminUser' %>
+        <li class="dropdown-item">
+          <%= link_to "Admin Dashboard", admin_root_path %>
+        </li>
+       <% end %>
+       <!-- TODO -->
+       <li class="divider"/>
+       <li class="dropdown-item">
+         <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+       </li>
+     </ul>
+   </li>
+  </ul>
+<% end %>
+<!-- TODO -->
